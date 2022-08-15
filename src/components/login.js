@@ -1,11 +1,16 @@
 import { useRef, useState, useEffect } from 'react'
 import userService from '../service/userService'
+import toast from '../service/toaster'
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
+
+// import { ToastContainer, toast } from 'react-toastify';
+
 const Login = () => {
+    const [validated, setValidated] = useState(false);
     const [usercreds, setUsercreds] = useState({
         email: "",
         password: ""
@@ -17,59 +22,81 @@ const Login = () => {
     }
 
     const loginHandler = (event) => {
-        event.preventDefault()
-        userService(usercreds).then(resp => {
-            localStorage.setItem("token", resp.data.token);
-            console.log(localStorage.getItem("token"));
-        }).catch(err => console.log(err))
+
         setShowCred(!showCred)
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
 
-    function StackingExample(msg) {
-        const [show, setShow] = useState(false);
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log("inside if");
+        }
+        else {
+            console.log("inside else");
+            userService(usercreds).then(resp => {
+                toast.success(resp.message);
+                localStorage.setItem("token", resp.data.token);
+                console.log(localStorage.getItem("token"));
+            }).catch(err => {
+                toast.error(err.message);
+                console.log(err)
+            })
+        }
 
-        return (
-            <Row>
-                <Col xs={6}>
-                    <ToastContainer className="p-3" position="top-end">
-                        <Toast onClose={() => setShow(false)} show={show} >
-                            <Toast.Header>
-                                <img
-                                    src="../../public/logo192.png"
-                                    className="rounded me-10"
-                                    alt=""
-                                />
-                                <strong className="me-auto">Cricket Prediction</strong>
-                                <small>11 mins ago</small>
-                            </Toast.Header>
-                            <Toast.Body>{msg}</Toast.Body>
-                        </Toast>
-                    </ToastContainer>
-                </Col>
-                <Col xs={6}>
-                    <Button onClick={() => setShow(true)}>Show Toast</Button>
-                </Col>
-            </Row>
-        );
-    }
+        setValidated(true);
+        //     
+    };
 
     return (
+        
         <div className="wrapper">
-            <form className="login">
-                <p className="title">Log in</p>
-                <input type="text" name="email" onChange={credHandler} placeholder="Email" />
-                <i className="fa fa-user"></i>
-                <input type="password" name="password" onChange={credHandler} placeholder="Password" />
-                <i className="fa fa-key"></i>
-                <br />
-                <button onClick={loginHandler}>
-                    <i className="spinner"></i>
-                    <span className="state">Log in</span>
-                </button>
-                {showCred && <p>Hi {usercreds?.email.split('@')[0].toUpperCase()} !!</p>}
-            </form>
-            {StackingExample()}
+            <Form noValidate validated={validated} onSubmit={handleSubmit} className="login">
+                <div className="body-str">
+                    <h2 className="text-center"><span><img src={require('../assets/cricket-player.png')} height={50} width={50}></img></span> Cricket Prediction</h2>
+                    <hr></hr>
+                    <h3 className="text-center">Login</h3>
+                    <Row className="mb-2">
+                        <Form.Group as={Col} md="16" controlId="validationCustomUsername">
+                            <Form.Label>Email</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-user"></span></InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email"
+                                    onChange={credHandler}
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide email.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} md="16" controlId="validationCustom03">
+                            <Form.Label>Password</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-lock"></span></InputGroup.Text>
+                                <Form.Control type="password" name="password" onChange={credHandler} placeholder="Password" required />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide password.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+
+                        </Form.Group>
+
+                    </Row>
+                </div>
+                <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Login</Button>
+            </Form>
+
+
         </div>
     )
 }

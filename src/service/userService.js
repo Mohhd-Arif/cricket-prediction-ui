@@ -4,7 +4,7 @@ const host = 'http://localhost:8000/api/v1'
 const login = async (creds)=>{
     try{
         let {data} = await axios.post(`${host}/login`,creds)
-        return data.data;
+        return data;
           
     }
     catch(err){
