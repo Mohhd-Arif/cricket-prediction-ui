@@ -1,11 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import userService from '../service/userService'
 import toast from '../service/toaster'
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
+import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 
 // import { ToastContainer, toast } from 'react-toastify';
 
@@ -52,7 +48,7 @@ const Login = () => {
     };
 
     return (
-        
+
         <div className="wrapper">
             <Form noValidate validated={validated} onSubmit={handleSubmit} className="login">
                 <div className="body-str">
@@ -92,6 +88,7 @@ const Login = () => {
                         </Form.Group>
 
                     </Row>
+            <a href="#"><p1>Forgot Password ?</p1></a>
                 </div>
                 <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Login</Button>
             </Form>
