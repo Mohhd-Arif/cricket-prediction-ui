@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import userService from '../service/userService'
 import toast from '../service/toaster'
-import {Button,Col,Form,InputGroup,Row} from 'react-bootstrap';
+import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 
 const Register = () => {
     const [validated, setValidated] = useState(false);
@@ -9,7 +9,6 @@ const Register = () => {
         email: "",
         password: ""
     });
-
     const userinfoHandler = (e) => {
         setUserinfo(creds => ({ ...creds, [e.target.name]: e.target.value }))
     }
@@ -21,27 +20,118 @@ const Register = () => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-            console.log("inside if");
         }
         else {
-            console.log("inside else");
-            // userService(usercreds).then(resp => {
-            //     toast.success(resp.message);
-            //     localStorage.setItem("token", resp.data.token);
-            //     console.log(localStorage.getItem("token"));
-            // }).catch(err => {
-            //     toast.error(err.message);
-            //     console.log(err)
-            // })
+            userService.register(userinfo).then(resp => {
+                toast.success(resp.message);
+
+            }).catch(err => {
+                toast.error(err.message);
+                console.log(err)
+            })
         }
 
         setValidated(true);
-        //     
-    };
+    }
 
     return (
-        <div>
-            <h1>hello Registration page</h1>
+        <div className="wrapper">
+            <Form noValidate validated={validated} onSubmit={handleSubmit} className="login">
+                <div className="body-str">
+                    <h2 className="text-center"><span><img src={require('../assets/cricket-player.png')} height={50} width={50}></img></span> Cricket Prediction</h2>
+                    <hr></hr>
+                    <h3 className="text-center">Registration</h3>
+                    <Row className="mb-2">
+                        <Form.Group as={Col} md="16" controlId="validationCustomUsername">
+                            <Form.Label>First name</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span><img src={require("../assets/icons8-badge-24.png")} height={15} width={10}></img></span></InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    name="firstName"
+                                    placeholder="First name"
+                                    onChange={userinfoHandler}
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide first name.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-2">
+                        <Form.Group as={Col} md="16" controlId="validationCustomUsername">
+                            <Form.Label>Last name</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span><img src={require("../assets/icons8-badge-24.png")} height={15} width={10}></img></span></InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    name="lastName"
+                                    placeholder="Last name"
+                                    onChange={userinfoHandler}
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide last name.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-2">
+                        <Form.Group as={Col} md="16" controlId="validationCustomUsername">
+                            <Form.Label>Email</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-user"></span></InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email"
+                                    onChange={userinfoHandler}
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide email.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} md="16" controlId="validationCustom03">
+                            <Form.Label>Password</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-lock"></span></InputGroup.Text>
+                                <Form.Control type="password" name="password" onChange={userinfoHandler} placeholder="Password" required />
+
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide password.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+
+                        </Form.Group>
+
+                    </Row>
+                    {userinfo.password && <Row className="mb-3">
+                        <Form.Group md="16">
+                            <Form.Label>Confirm Password</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-lock"></span></InputGroup.Text>
+                                <Form.Control type="password" name="confirmPassword" onChange={userinfoHandler} placeholder="Confirm Password" required />
+                                <Form.Control.Feedback type="invalid">
+                                    Please confirm password.
+                                </Form.Control.Feedback>
+                            </InputGroup>
+
+                        </Form.Group>
+
+                    </Row>}
+                </div>
+                <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Register</Button>
+            </Form>
+
+
         </div>
     )
 }

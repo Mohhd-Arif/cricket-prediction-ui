@@ -13,4 +13,16 @@ const login = async (creds)=>{
 
 }
 
-export default login
+const register = async (userInfo)=>{
+    try{
+        let {data} = await axios.post(`${host}/register`,userInfo)
+        return data;
+          
+    }
+    catch(err){
+        throw new Error(err.response.data.message);
+    }
+
+}
+
+export default {login,register}

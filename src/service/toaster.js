@@ -8,17 +8,24 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const success = (msg) => {
-    toast.success(msg, {
-            icon: ({theme, type}) =>  <img src={require('../assets/cricket.png')} height={25} width={25}/>
-          }) 
-          return true
+  toast.success(msg, {
+    icon: ({ theme, type }) => <img src={require('../assets/cricket.png')} height={25} width={25} />
+  })
+  return true
 }
 
 const error = (msg) => {
+  if (msg == '[object Object]') {
+    toast.error("Something went wrong", {
+      icon: ({ theme, type }) => <img src={require('../assets/errorball.png')} height={25} width={25} />
+    })
+  }
+  else {
     toast.error(msg, {
-            icon: ({theme, type}) =>  <img src={require('../assets/errorball.png')} height={25} width={25}/>
-          }) 
-          return true
+      icon: ({ theme, type }) => <img src={require('../assets/errorball.png')} height={25} width={25} />
+    })
+  }
+  return true
 }
 
-export default {success,error};
+export default { success, error };

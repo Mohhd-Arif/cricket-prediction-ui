@@ -64,3 +64,10 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.eye-btn {
+  color: black;
+  background: white;
+  border-color: #c1b9b9;
+  border-left: 0px;
+}
