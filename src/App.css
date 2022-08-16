@@ -65,9 +65,17 @@ h2 {
   -webkit-text-fill-color: transparent;
 }
 
-.eye-btn {
-  color: black;
-  background: white;
-  border-color: #c1b9b9;
-  border-left: 0px;
+
+div a {
+  text-decoration: none;
+  color:rgb(30, 77, 230) !important;
+  cursor: pointer;
+}
+
+div a:hover{
+  color:red !important
+}
+
+div a:active{
+  color:green !important
 }

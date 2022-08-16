@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import userService from '../service/userService'
 import toast from '../service/toaster'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
+import {useNavigate} from "react-router-dom";
 
 // import { ToastContainer, toast } from 'react-toastify';
 
@@ -11,6 +12,7 @@ const Login = () => {
         email: "",
         password: ""
     });
+    const navigate = useNavigate();
     let [showCred, setShowCred] = useState(false);
 
     const credHandler = (e) => {
@@ -29,10 +31,8 @@ const Login = () => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-            console.log("inside if");
         }
         else {
-            console.log("inside else");
             userService(usercreds).then(resp => {
                 toast.success(resp.message);
                 localStorage.setItem("token", resp.data.token);
@@ -88,7 +88,12 @@ const Login = () => {
                         </Form.Group>
 
                     </Row>
-            <a href="#"><p1>Forgot Password ?</p1></a>
+                    <div style={{width: "100%",display: "flex"}}>
+                    <a href="#" style={{width: "100%",display: "flex",justifyContent:"left"}}>Forgot Password ?</a>
+                    <a onClick={()=>{
+                        navigate("/register")
+                    }} style={{width: "100%",display: "flex",justifyContent:"right"}}>Create Account</a>
+                    </div>
                 </div>
                 <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Login</Button>
             </Form>
