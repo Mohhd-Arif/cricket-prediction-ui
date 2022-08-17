@@ -26,13 +26,15 @@ const Register = () => {
         }
         
         else {
-            userService.register(userinfo).then(resp => {
-                toast.success(resp.message);
-
-            }).catch(err => {
-                toast.error(err.message);
-                console.log(err)
-            })
+            if(userinfo.password === userinfo.confirmPassword){
+                userService.register(userinfo).then(resp => {
+                    toast.success(resp.message);
+    
+                }).catch(err => {
+                    toast.error(err.message);
+                    console.log(err)
+                })
+            }
         }
         setFormSubmitted(true)
 
@@ -134,7 +136,8 @@ const Register = () => {
                             <InputGroup hasValidation>
                                 <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-lock"></span></InputGroup.Text>
                                 <Form.Control type={passwordType} name="confirmPassword" onChange={userinfoHandler} placeholder="Confirm Password"
-                                isInvalid={userinfo.password != userinfo.confirmPassword}/>
+                                isInvalid={userinfo.password != userinfo.confirmPassword}
+                                required/>
                                 <Form.Control.Feedback type="invalid">
                                     Password didn't matched!.
                                 </Form.Control.Feedback>
