@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import userService from '../service/userService'
 import toast from '../service/toaster'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 // import { ToastContainer, toast } from 'react-toastify';
 
@@ -49,50 +49,29 @@ const Login = () => {
                 <div className="body-str">
                     <h2 className="text-center"><span><img src={require('../assets/cricket-player.png')} height={50} width={50}></img></span> Cricket Prediction</h2>
                     <hr></hr>
-                    <h3 className="text-center">Login</h3>
+                    <h3 className="text-center">Confirm OTP</h3>
                     <Row className="mb-2">
                         <Form.Group as={Col} md="16" controlId="validationCustomUsername">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label>OTP</Form.Label>
                             <InputGroup hasValidation>
                                 <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-user"></span></InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    name="email"
-                                    placeholder="Email"
+                                    name="otp"
+                                    placeholder="OTP"
                                     onChange={credHandler}
                                     aria-describedby="inputGroupPrepend"
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Please provide email.
+                                    Please provide otp.
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} md="16" controlId="validationCustom03">
-                            <Form.Label>Password</Form.Label>
-                            <InputGroup hasValidation>
-                                <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-lock"></span></InputGroup.Text>
-                                <Form.Control type="password" name="password" onChange={credHandler} placeholder="Password" required />
-                                <Form.Control.Feedback type="invalid">
-                                    Please provide password.
-                                </Form.Control.Feedback>
-                            </InputGroup>
-
-                        </Form.Group>
-
-                    </Row>
-                    <div style={{ width: "100%", display: "flex" }}>
-                        <a onClick={() => {
-                            navigate("/getOTP")
-                        }} style={{ width: "100%", display: "flex", justifyContent: "left" }}>Forgot Password ?</a>
-                        <a onClick={() => {
-                            navigate("/register")
-                        }} style={{ width: "100%", display: "flex", justifyContent: "right" }}>Create Account</a>
-                    </div>
+                    </Row>                    
+                    
                 </div>
-                <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Login</Button>
+                <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Submit OTP</Button>
             </Form>
 
 
