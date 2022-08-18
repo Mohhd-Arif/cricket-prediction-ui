@@ -3,6 +3,7 @@ import Registration from './components/registration'
 import ForgotPassword from './components/ForgotPassword'
 import ConfirmOtp from './components/ConfirmOtp'
 import GetOtp from './components/GetOtp'
+import HomePage from './components/HomePage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +21,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
           <Route path="/getOTP" element={<GetOtp/>}/>
           <Route path="/confirmOTP" element={<ConfirmOtp/>}/>
+          <Route path="/home" element={<HomePage/>}/>
         </Routes>
       </Router>
       <ToastContainer/>

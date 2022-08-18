@@ -32,6 +32,7 @@ const Login = () => {
                 toast.success(resp.message);
                 localStorage.setItem("token", resp.data.token);
                 console.log(localStorage.getItem("token"));
+                navigate("/home")
             }).catch(err => {
                 toast.error(err.message);
                 console.log(err)
