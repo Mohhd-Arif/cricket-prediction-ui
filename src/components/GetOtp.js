@@ -95,6 +95,8 @@ const Login = () => {
                     <p1><strong>STEP 1:</strong> add this <a>+1(415)523-886</a> to you contact.</p1>
                     <br/>
                     <p1><strong>STEP 2:</strong> send message <strong>join giving-pair</strong> using your whatsapp with the same registered mobile number.</p1>
+                    <br/>
+                    <p1><strong>STEP 3:</strong> Click button below to get OTP over whatsapp.</p1>
                 </div>
                 <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Get OTP</Button>
             </Form>
