@@ -11,7 +11,8 @@ const GetOtp = () => {
     const [otpObj, setOtpObj] = useState({
         email: "",
         phone: "",
-        locale: "+91"
+        locale: "+91",
+        type:"forgotpassword"
     });
     const navigate = useNavigate();
 

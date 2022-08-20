@@ -10,7 +10,8 @@ const ConfirmOtp = () => {
     const [validated, setValidated] = useState(false);
     const [usercreds, setUsercreds] = useState({
         email: "",
-        password: ""
+        password: "",
+        type:"forgotpassword"
     });
     const navigate = useNavigate();
     let [showCred, setShowCred] = useState(false);

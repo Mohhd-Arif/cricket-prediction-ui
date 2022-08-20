@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 const Login = () => {
     const [validated, setValidated] = useState(false);
     const [usercreds, setUsercreds] = useState({
-        email: "",
+        email: localStorage.getItem('email'),
         password: ""
     });
     const navigate = useNavigate();
@@ -28,10 +28,9 @@ const Login = () => {
             event.stopPropagation();
         }
         else {
-            userService.login(usercreds).then(resp => {
+            userService.resetPassword(usercreds).then(resp => {
                 toast.success(resp.message);
-                localStorage.setItem("token", resp.data.token);
-                console.log(localStorage.getItem("token"));
+                navigate('/')
             }).catch(err => {
                 toast.error(err.message);
                 console.log(err)
@@ -49,7 +48,7 @@ const Login = () => {
                 <div className="body-str">
                     <h2 className="text-center"><span><img src={require('../assets/cricket-player.png')} height={50} width={50}></img></span> Cricket Prediction</h2>
                     <hr></hr>
-                    <h3 className="text-center">Login</h3>
+                    <h3 className="text-center">Set New Password</h3>
                     <Row className="mb-3">
                         <Form.Group as={Col} md="16" controlId="validationCustom03">
                             <Form.Label>New Password</Form.Label>
@@ -66,27 +65,20 @@ const Login = () => {
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} md="16" controlId="validationCustom03">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Confirm Password</Form.Label>
                             <InputGroup hasValidation>
                                 <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-lock"></span></InputGroup.Text>
-                                <Form.Control type="password" name="password" onChange={credHandler} placeholder="Password" required />
+                                <Form.Control type="password" name="confirmpassword" onChange={credHandler} placeholder="Password" required />
                                 <Form.Control.Feedback type="invalid">
-                                    Please provide password.
+                                    Please confirm password.
                                 </Form.Control.Feedback>
                             </InputGroup>
 
                         </Form.Group>
 
                     </Row>
-                    
-                    <div style={{width: "100%",display: "flex"}}>
-                    <a href="#" style={{width: "100%",display: "flex",justifyContent:"left"}}>Forgot Password ?</a>
-                    <a onClick={()=>{
-                        navigate("/register")
-                    }} style={{width: "100%",display: "flex",justifyContent:"right"}}>Create Account</a>
-                    </div>
                 </div>
-                <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Login</Button>
+                <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Reset Password</Button>
             </Form>
 
 

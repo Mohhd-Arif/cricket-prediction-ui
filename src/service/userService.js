@@ -49,4 +49,16 @@ const confirmOTP = async (otpReq)=>{
 
 }
 
-export default {login,register,getOTP,confirmOTP}
+const resetPassword = async (password)=>{
+    try{
+        let {data} = await axios.put(`${host}/password`,password)
+        return data;
+          
+    }
+    catch(err){
+        throw new Error(err.response.data.message);
+    }
+
+}
+
+export default {login,register,getOTP,confirmOTP,resetPassword}
