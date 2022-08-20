@@ -6,17 +6,17 @@ import {useNavigate} from "react-router-dom";
 
 // import { ToastContainer, toast } from 'react-toastify';
 
-const Login = () => {
+const GetOtp = () => {
     const [validated, setValidated] = useState(false);
-    const [usercreds, setUsercreds] = useState({
+    const [otpObj, setOtpObj] = useState({
         email: "",
-        password: ""
+        phone: "",
+        locale: "+91"
     });
     const navigate = useNavigate();
-    let [showCred, setShowCred] = useState(false);
 
     const credHandler = (e) => {
-        setUsercreds(creds => ({ ...creds, [e.target.name]: e.target.value }))
+        setOtpObj(creds => ({ ...creds, [e.target.name]: e.target.value }))
     }
 
     const handleSubmit = (event) => {
@@ -29,10 +29,9 @@ const Login = () => {
         }
         else {
             navigate('/confirmOTP')
-            userService.login(usercreds).then(resp => {
+            userService.getOTP(otpObj).then(resp => {
                 toast.success(resp.message);
-                localStorage.setItem("token", resp.data.token);
-                console.log(localStorage.getItem("token"));
+                localStorage.setItem("email",otpObj.email)
             }).catch(err => {
                 toast.error(err.message);
                 console.log(err)
@@ -77,7 +76,7 @@ const Login = () => {
                                 <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-user"></span></InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    name="mobile"
+                                    name="phone"
                                     placeholder="Registered Mobile No."
                                     onChange={credHandler}
                                     aria-describedby="inputGroupPrepend"
@@ -96,7 +95,7 @@ const Login = () => {
                     <br/>
                     <p1><strong>STEP 2:</strong> send message <strong>join giving-pair</strong> using your whatsapp with the same registered mobile number.</p1>
                     <br/>
-                    <p1><strong>STEP 3:</strong> Click button below to get OTP over whatsapp.</p1>
+                <p1><strong>STEP 3:</strong> Click button below to get OTP over whatsapp.</p1>
                 </div>
                 <Button style={{ position: "absolute", width: "100%", borderRadius: "0 0 4px 4px" }} type="submit">Get OTP</Button>
             </Form>
@@ -106,4 +105,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default GetOtp

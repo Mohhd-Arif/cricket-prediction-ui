@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 
 // import { ToastContainer, toast } from 'react-toastify';
 
-const Login = () => {
+const ConfirmOtp = () => {
     const [validated, setValidated] = useState(false);
     const [usercreds, setUsercreds] = useState({
         email: "",
@@ -28,10 +28,11 @@ const Login = () => {
             event.stopPropagation();
         }
         else {
-            userService.login(usercreds).then(resp => {
+            userService.confirmOTP({...usercreds,email:localStorage.getItem("email")}).then(resp => {
                 toast.success(resp.message);
-                localStorage.setItem("token", resp.data.token);
-                console.log(localStorage.getItem("token"));
+                navigate('/forgotpassword')
+                // localStorage.setItem("token", resp.data.token);
+                // console.log(localStorage.getItem("token"));
             }).catch(err => {
                 toast.error(err.message);
                 console.log(err)
@@ -57,7 +58,7 @@ const Login = () => {
                                 <InputGroup.Text id="inputGroupPrepend"><span className="fa fa-user"></span></InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    name="otp"
+                                    name="OTP"
                                     placeholder="OTP"
                                     onChange={credHandler}
                                     aria-describedby="inputGroupPrepend"
@@ -79,4 +80,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default ConfirmOtp
